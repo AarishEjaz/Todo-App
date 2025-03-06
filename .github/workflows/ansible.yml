@@ -3,6 +3,17 @@ name: Provision of Ec2 instance and configuration with Ansible
 on: 
     push:
         branches:
-            - main
+            - master
 
 jobs: 
+    provision_ec2:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - name: Setup Python 3.x
+              uses: ctions/setup-python@v2
+              with: 
+                python-version: "3.10"

@@ -55,6 +55,10 @@
     ansible_ssh_private_key_file: "{{ec2_ssh_key_path}}"
     ansible_user: ec2-user
 
+- name: 
+  debug: 
+    msg: "EC2 public dns: {{ec2.instances[0].public_dns_name}}"
+
 - name: Debug ssh key path 
   debug:
     var: ec2_ssh_key_path

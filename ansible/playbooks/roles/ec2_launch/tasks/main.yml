@@ -24,7 +24,7 @@
           to_port: 80
           cidr_ip: 0.0.0.0/0
         rules_egress:
-          - proto: all
+          - proto: -1
             cidr_ip: 0.0.0.0/0
       register: security_group
 

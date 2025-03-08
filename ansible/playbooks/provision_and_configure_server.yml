@@ -2,31 +2,7 @@
 - name: Provision Ec2 instance and install packages 
   hosts: localhost
   gather_facts: no
-  
-  tasks:
-    - name: Adding ssh access to a security group
-      amazon.aws.ec2_group:
-        name: default
-        description: Security group for Ec2 instances launch
-        region: ap-south-1
-        rules:
-        - proto: tcp
-          from_port: 3001
-          to_port: 3001
-          cidr_ip: 0.0.0.0/0
-        - proto: tcp
-          from_port: 3000
-          to_port: 3000
-          cidr_ip: 0.0.0.0/0
-        - proto: tcp
-          from_port: 22
-          to_port: 22
-          cidr_ip: 0.0.0.0/0
-        - proto: tcp
-          from_port: 80
-          to_port: 80
-          cidr_ip: 0.0.0.0/0
-        rules_egress:
-          - proto: -1
-            cidr_ip: 0.0.0.0/0
-      register: security_group
+
+  roles:
+    - ec2_launch
+

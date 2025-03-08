@@ -1,6 +1,6 @@
 ---
 # tasks file for ec2_launch
-  tasks:
+
     - name: Adding ssh access to a security group
       amazon.aws.ec2_groups:
         name: default

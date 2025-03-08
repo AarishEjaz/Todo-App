@@ -1,41 +1,40 @@
 ---
 # tasks file for ec2_launch
 
-    - name: Adding ssh access to a security group
-      amazon.aws.ec2_groups:
-        name: default
-        description: Security group for Ec2 instances launch
-        region: ap-south-1
-        rules:
-        - proto: tcp
-          from_port: 3001
-          to_port: 3001
+  - name: Adding ssh access to a security group
+    amazon.aws.ec2_groups:
+      name: default
+      description: Security group for Ec2 instances launch
+      region: ap-south-1
+      rules:
+      - proto: tcp
+        from_port: 3001
+        to_port: 3001
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 3000
+        to_port: 3000
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+      rules_egress:
+        - proto: -1
           cidr_ip: 0.0.0.0/0
-        - proto: tcp
-          from_port: 3000
-          to_port: 3000
-          cidr_ip: 0.0.0.0/0
-        - proto: tcp
-          from_port: 22
-          to_port: 22
-          cidr_ip: 0.0.0.0/0
-        - proto: tcp
-          from_port: 80
-          to_port: 80
-          cidr_ip: 0.0.0.0/0
-        rules_egress:
-          - proto: -1
-            cidr_ip: 0.0.0.0/0
-      register: security_group
-
-    - name: Launch Ec2 instance 
-      amazon.aws.ec2_instance:
-        name: Ansible-created-instance
-        key_name: "{{ec2_key_name}}"
-        region: "{{aws_region}}"
-        image_id: "{{ec2_ami_id}}"
-        instance_type: "{{ec2_instance_type}}"
-        count: 1
-        security_groups: ["{{security_group.group_id}}"]
-      register: ec2
+    register: security_group
+  - name: Launch Ec2 instance 
+    amazon.aws.ec2_instance:
+      name: Ansible-created-instance
+      key_name: "{{ec2_key_name}}"
+      region: "{{aws_region}}"
+      image_id: "{{ec2_ami_id}}"
+      instance_type: "{{ec2_instance_type}}"
+      count: 1
+      security_groups: ["{{security_group.group_id}}"]
+    register: ec2
 

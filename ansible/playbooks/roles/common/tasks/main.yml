@@ -6,7 +6,6 @@
     name: 
       - httpd
       - js
-      - npm
     state: present
 
 - name: start and enable Apache

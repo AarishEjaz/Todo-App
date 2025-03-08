@@ -41,7 +41,7 @@
 
 - name: wait for the instance to be ready 
   wait_for:
-    host: "{{ ec2.instance[0].public_dns_name }}"
+    host: "{{ ec2.instances[0].public_dns_name }}"
     port: 22
     delay: 30
     timeout: 300
@@ -54,6 +54,10 @@
     groups: Launched_ec2_instances
     ansible_ssh_private_key_file: "{{ec2_ssh_key_path}}"
     ansible_user: ec2-user
+
+- name: Debug ssh key path 
+  debug:
+    var: ec2_ssh_key_path
 
 - name: Debug dynamic inventory
   debug: 

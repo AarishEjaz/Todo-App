@@ -50,7 +50,7 @@
 
 - name: Debug EC2 Instance Details
   debug:
-    var: ec2.instances.public_dns_name
+    var: ec2.instances[0].public_dns_name
 
 - name: Add the Ec2 instance to the inventory dynamically 
   add_host:

@@ -37,6 +37,9 @@
     instance_type: "{{ec2_instance_type}}"
     count: 1
     security_groups: ["{{security_group.group_id}}"]
+    wait: yes
+    network:
+      assign_public_ip: yes
   register: ec2
 
 - name: wait for the instance to be ready 

@@ -2,10 +2,9 @@
 # tasks file for common
 - name: Install common Packages
   become: yes
-  dnf: 
+  packages: 
     name: 
       - httpd
-      - rsync
       # - Nodejs
       # - npm
     state: present

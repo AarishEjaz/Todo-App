@@ -27,6 +27,7 @@
         - proto: all
           cidr_ip: 0.0.0.0/0
     register: security_group
+
   - name: Launch Ec2 instance 
     amazon.aws.ec2_instance:
       name: Ansible-created-instance
@@ -35,6 +36,6 @@
       image_id: "{{ec2_ami_id}}"
       instance_type: "{{ec2_instance_type}}"
       count: 1
-      security_groups: ["{{security_group.group_id}}"]
+      security_groups: "{{security_group.group_id}}"
     register: ec2
 

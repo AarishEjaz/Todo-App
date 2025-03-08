@@ -5,3 +5,4 @@ ec2_instance_type: t2.micro
 ec2_ami_id: ami-08fe5144e4659a3b3
 ec2_key_name: ansible-test
 ec2_ssh_key_path: "/home/aarish/Desktop/Things/ansible-test.pem"
+ec2_ssh_user: ec2-user

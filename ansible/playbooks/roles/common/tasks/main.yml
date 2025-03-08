@@ -2,11 +2,12 @@
 # tasks file for common
 - name: Install common Packages
   become: yes
-  package:
+  package: 
     name: 
       - httpd
-      - nodejs
-      - npm
+      - rsync
+      # - Nodejs
+      # - npm
     state: present
 
 - name: start and enable Apache
@@ -23,7 +24,7 @@
     dest: "/opt/todo-app"
     delete: yes
     recursive: yes
-    resync-opts:
+    rsync_opts:
       - "--exclude=.git"
       - "--exclude=.github"
       - "--exclude=.ansible"

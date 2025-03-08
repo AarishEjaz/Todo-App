@@ -24,7 +24,7 @@
         to_port: 80
         cidr_ip: 0.0.0.0/0
       rules_egress:
-        - proto: -1
+        - proto: all
           cidr_ip: 0.0.0.0/0
     register: security_group
   - name: Launch Ec2 instance 

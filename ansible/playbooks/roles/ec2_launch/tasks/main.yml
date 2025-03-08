@@ -2,7 +2,7 @@
 # tasks file for ec2_launch
   tasks:
     - name: Adding ssh access to a security group
-      amazon.aws.ec2_group:
+      amazon.aws.ec2_groups:
         name: default
         description: Security group for Ec2 instances launch
         region: ap-south-1
@@ -36,6 +36,6 @@
         image_id: "{{ec2_ami_id}}"
         instance_type: "{{ec2_instance_type}}"
         count: 1
-        security_group: "{{security_group.group_id}}"
+        security_groups: "{{security_group.group_id}}"
       register: ec2
 

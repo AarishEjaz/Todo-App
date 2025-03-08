@@ -2,7 +2,7 @@
 # tasks file for common
 - name: Install common Packages
   become: yes
-  packages: 
+  yum: 
     name: 
       - httpd
       # - Nodejs

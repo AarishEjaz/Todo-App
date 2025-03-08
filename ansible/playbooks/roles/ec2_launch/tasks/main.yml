@@ -59,6 +59,8 @@
   debug: 
     var: groups['Launched_ec2_instances']
 
+
+
 # ---
 # # tasks file for ec2_launch
 

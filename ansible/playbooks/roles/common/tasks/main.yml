@@ -5,8 +5,8 @@
   yum: 
     name: 
       - httpd
-      # - Nodejs
-      # - npm
+      - js
+      - npm
     state: present
 
 - name: start and enable Apache

@@ -62,12 +62,12 @@
 
     - name: Install Node.js on Amazon Linux 2023 and RHEL-based systems
       block:
-        - name: Enable Extra Packages for Enterprise Linux (EPEL) and Node.js module
-          shell: |
-            dnf module reset nodejs -y
-            dnf module enable nodejs:18 -y
-          args:
-            executable: /bin/bash
+        # - name: Enable Extra Packages for Enterprise Linux (EPEL) and Node.js module
+        #   shell: |
+        #     dnf module reset nodejs -y
+        #     dnf module enable nodejs:18 -y
+        #   args:
+        #     executable: /bin/bash
 
         - name: Install Node.js and npm
           dnf:

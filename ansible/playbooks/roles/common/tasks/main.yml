@@ -35,7 +35,7 @@
   yum: 
     name: 
       - httpd
-      - js
+      # - js
     state: present
 
 - name: Check OS release

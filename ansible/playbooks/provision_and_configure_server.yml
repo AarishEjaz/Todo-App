@@ -7,7 +7,7 @@
     - ec2_launch
 
 - name: Configuration of Ec2 instance
-  hosts: Launched_ec2_instances
+  hosts: launched_ec2_instances
   gather_facts: yes
   roles:
     - common

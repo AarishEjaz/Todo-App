@@ -58,7 +58,7 @@
 - name: Add the Ec2 instance to the inventory dynamically 
   add_host:
     name: "{{ ec2.instances[0].public_dns_name }}"
-    groups: Launched_ec2_instances
+    groups: launched_ec2_instances
     ansible_ssh_private_key_file: "{{ec2_ssh_key_path}}"
     ansible_user: "{{ec2_ssh_user}}"
 
@@ -72,7 +72,7 @@
 
 - name: Debug dynamic inventory
   debug: 
-    var: groups['Launched_ec2_instances']
+    var: groups['launched_ec2_instances']
 
 
 

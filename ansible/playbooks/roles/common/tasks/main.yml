@@ -1,6 +1,36 @@
+# ---
+# # tasks file for common
+# - name: Install common Packages
+#   become: yes
+#   yum: 
+#     name: 
+#       - httpd
+#       - js
+#     state: present
+
+# - name: start and enable Apache
+#   become: yes
+#   service:
+#     name: httpd
+#     state: started
+#     enabled: yes
+
+# - name: copy source code 
+#   become: yes
+#   synchronize:
+#     src: "{{playbook_dir}}/../../"
+#     dest: "/opt/todo-app"
+#     delete: yes
+#     recursive: yes
+#     rsync_opts:
+#       - "--exclude=.git"
+#       - "--exclude=.github"
+#       - "--exclude=.ansible"
+
+
 ---
 # tasks file for common
-- name: Install common Packages
+- name: Install common packages
   become: yes
   yum: 
     name: 
@@ -8,17 +38,54 @@
       - js
     state: present
 
-- name: start and enable Apache
+- name: Check OS release
+  command: cat /etc/os-release
+  register: os_release
+  changed_when: false
+
+- name: Install Node.js and npm
+  become: yes
+  block:
+
+    - name: Install Node.js on Amazon Linux 2
+      block:
+        - name: Add NodeSource repository
+          shell: curl -fsSL https://rpm.nodesource.com/setup_18.x | bash -
+          args:
+            executable: /bin/bash
+
+        - name: Install Node.js and npm
+          yum:
+            name: nodejs
+            state: present
+      when: "'Amazon Linux 2' in os_release.stdout"
+
+    - name: Install Node.js on Amazon Linux 2023 and RHEL-based systems
+      block:
+        - name: Enable Extra Packages for Enterprise Linux (EPEL) and Node.js module
+          shell: |
+            dnf module reset nodejs -y
+            dnf module enable nodejs:18 -y
+          args:
+            executable: /bin/bash
+
+        - name: Install Node.js and npm
+          dnf:
+            name: nodejs
+            state: present
+      when: "'Amazon Linux 2023' in os_release.stdout or 'Red Hat' in os_release.stdout"
+
+- name: Start and enable Apache
   become: yes
   service:
     name: httpd
     state: started
     enabled: yes
 
-- name: copy source code 
+- name: Copy source code 
   become: yes
   synchronize:
-    src: "{{playbook_dir}}/../../"
+    src: "{{ playbook_dir }}/../../"
     dest: "/opt/todo-app"
     delete: yes
     recursive: yes
@@ -26,3 +93,12 @@
       - "--exclude=.git"
       - "--exclude=.github"
       - "--exclude=.ansible"
+
+- name: Verify Node.js installation
+  command: node -v
+  register: node_version
+  changed_when: false
+
+- name: Show Node.js version
+  debug:
+    msg: "Installed Node.js version: {{ node_version.stdout }}"

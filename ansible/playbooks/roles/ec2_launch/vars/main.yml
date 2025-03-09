@@ -6,3 +6,5 @@ ec2_ami_id: ami-05c179eced2eb9b5b
 ec2_key_name: ansible-test
 ec2_ssh_key_path: "/home/aarish/Desktop/Things/ansible-test.pem"
 ec2_ssh_user: ec2-user
+
+# test

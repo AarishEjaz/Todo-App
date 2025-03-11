@@ -18,13 +18,13 @@
   register: start_js
 
 - name: Debugging start.js existance
-  debug: "start.js found {{start_js.stat.exist}}"
+  debug: "start.js found {{start_js.stat.exists}}"
 
-- name: Check the name todo-list
+- name: Check the pm2 list
   become: yes
-  command: pm2_list
+  command: pm2 list
   register: pm2_list
-  change_when: flase
+  changed_when: false
 
 - name: Debug the pm2_list
   debug:

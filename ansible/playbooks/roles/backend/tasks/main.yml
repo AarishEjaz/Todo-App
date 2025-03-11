@@ -18,7 +18,7 @@
   register: start_js
 
 - name: Debugging start.js existance
-  debug: "start.js found {{start_js.stat.exists}}"
+  debug: "Start.js status: {{start_js.stat.exists}}"
 
 - name: Check the pm2 list
   become: yes
@@ -30,14 +30,14 @@
   debug:
     var: pm2_list.how_lines
 
-- name: Start or restart 
+- name: Start or restart the backend with pm2 
   become: yes
   command: "pm2 start-f start.js"
   args:
     chdir: /opt/todo-app/todo-backend 
   when: start_js.start.exist
 
-- name: Set pm2 to restart on reboot
+- name: Set pm2 to restart on boot
   become: yes
   command: pm2 startup
   args:

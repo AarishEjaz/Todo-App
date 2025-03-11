@@ -43,7 +43,7 @@
   register: os_release
   changed_when: false
 
-- name: Install Node.js and npm
+- name: Install Node.js and NPM
   become: yes
   block:
 

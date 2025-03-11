@@ -37,7 +37,7 @@
     chdir: /opt/todo-app/todo-backend 
   when: start_js.start.exist
 
-- name: Set pm2 to restart on boot
+- name: Set pm2 to restart on Boot
   become: yes
   command: pm2 startup
   args:

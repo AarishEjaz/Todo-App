@@ -17,8 +17,9 @@
     path: /opt/todo-app/todo-backend/start.js
   register: start_js
 
-- name: Debugging start.js existance
-  debug: "Start.js status: {{start_js.stat.exists}}"
+- name: Debugging start.js existence
+  debug:
+    msg: "Start.js status: {{ start_js.stat.exists }}"
 
 - name: Check the pm2 list
   become: yes

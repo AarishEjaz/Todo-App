@@ -6,6 +6,7 @@ const Todo = require('./models/todoModel')
 const dotenv = require('dotenv').config()
 const connectDB = require("./db")
 const todoRoutes = require("./routes/todoRoutes")
+const path = require("path")
 
 
 const app = express()
@@ -25,5 +26,12 @@ app.get("/", async(req, res) => {
 
 
 connectDB();
+
+app.use(express.static(path.join(__dirname, "../todo-frontend/build")))
+
+app.get("*", (req, res) =>{
+  res.sendFile(path.join(__dirname, "../todo-frontend/build", "index.html"))
+})
+
 
 module.exports = app

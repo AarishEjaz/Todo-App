@@ -31,9 +31,9 @@
   debug:
     var: pm2_list.how_lines
 
-- name: Start or restart the backend with pm2 
+- name: Start or restart the backend with pm2 # you might have to remove this step later
   become: yes
-  command: "/usr/bin/pm2 start start.js"
+  command: "/usr/bin/pm2 start -f start.js" #might have to remove the -f 
   args:
     chdir: /opt/todo-app/todo-backend 
   when: start_js.stat.exists

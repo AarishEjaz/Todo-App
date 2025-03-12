@@ -33,7 +33,7 @@
 
 - name: Start or restart the backend with pm2 
   become: yes
-  command: "/usr/bin/pm2 restart start.js || /usr/bin/pm2 start start.js"
+  command: "/usr/bin/pm2 start start.js"
   args:
     chdir: /opt/todo-app/todo-backend 
   when: start_js.stat.exists

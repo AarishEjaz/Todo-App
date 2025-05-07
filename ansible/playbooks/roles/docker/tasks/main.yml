@@ -1,0 +1,46 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for docker
+- name: Start and enable docker services
+  service: 
+    name: docker
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Create docker CLI plugin directory
+  file:
+    path: /usr/local/lib/docker/cli-plugins
+    state: directory
+    mode: "0755"
+  become: yes
+
+- name: Latest docker compose release
+  uri:
+    url: https://api.github.com/repos/docker/compose/releases/latest
+    return_content: yes
+  register: docker_compose_latest
+
+- name: Set Docker compose version
+  set_fact:
+    docker_compose_version: "{{ docker_compose_latest.json.tag_name }}"
+
+- name: Install docker compose plugin 
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system | lower }}-{{ ansible_architecture }}"
+    dest: /usr/local/lib/docker/cli-plugins/docker-compose
+    mode: "0755"
+  become: yes
+
+- name: Create Docker group    
+  user: 
+    name: "{{ ansible_user }}"
+    group: docker
+    append: yes
+  become: yes
+
+- name: run docker compose
+  community.docker.docker_compose_v2:
+    project_src: /opt/todo-app
+    state: present
+  become: yes

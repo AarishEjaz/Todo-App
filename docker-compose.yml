@@ -1,11 +1,4 @@
-
-
-networks:
-  todo-network:
-    driver: bridge
-    
-
-    services:
+services:
   todo-frontend:
     build:  ./todo-frontend
     ports:

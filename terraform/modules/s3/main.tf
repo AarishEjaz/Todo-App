@@ -5,9 +5,7 @@ resource "aws_s3_bucket" "website" {
   bucket = var.bucket_name
 }
 
-resource "aws_s3_bucket" "website" {
-  bucket = "example"
-}
+
 
 resource "aws_s3_bucket_public_access_block" "example" {
   bucket = aws_s3_bucket.website.id 
